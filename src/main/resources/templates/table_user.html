@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Control</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<th:block th:include="/_header_admin" th:if="${userdto.email}"></th:block>
+<th:block th:include="/_header_off" th:unless="${userdto.email}"></th:block>
+<div class="container">
+    <div class="row">
+
+        <!-- success message  -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info"> You are successfull registered to our awsome app!</div>
+        </div>
+
+        <h1>Topics</h1>
+        <table class="table table-striped table-success text-center" th:if="${users.size() != 0}">
+            <thead>
+            <tr>
+                <th class="col-md-1">Answers</th>
+                <th class="col-md-1">Topic</th>
+                <th class="col-md-2">User Display Name</th>
+                <th class="col-md-2">Email</th>
+                <th class="col-md-2">Create</th>
+                <th class="col-md-2">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${users}">
+                <tr>
+                    <td th:text="${commentcount.countCommentByUser_ID(user.ID)}">Number of answers</td>
+                    <td th:text="*{topiccount.countTopicByUser_ID(user.ID)}">Number of topics</td>
+                    <td>
+                        <!--                            <a th:href="@{'/profile/' + ${topic.getUser().getId()}}">-->
+                        <div class="chip" th:text="${user.userDisplayName}">User Display Name</div>
+                        <!--                            </a>-->
+                    </td>
+                    <td th:text="*{user.email}">Email</td>
+                    <td th:text="*{user.creationDate}"> User's created date </td>
+<!--                    <td th:if="${user.role == 'ROLE_USER' }">-->
+<!--                        <button class="btn btn-danger" type="button">-->
+<!--                            <a th:href="" class="text-white" method=RequestMethod.GET>-->
+<!--                                Delete-->
+<!--                            </a>-->
+<!--                        </button>-->
+<!--                    </td>-->
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>

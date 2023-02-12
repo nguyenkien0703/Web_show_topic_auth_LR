@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${topic.title}">Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<th:block th:include="/_header_on" th:if="${userdto.email}"></th:block>
+<th:block th:include="/_header_off" th:unless="${userdto.email}"></th:block>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1>EDIT YOUR TOPIC</h1>
+            <form th:action="@{'/edit_topic/' + ${topic.id}}" method="post" th:object="${topic}">
+                <div class="form-group">
+                    <label class="control-label" for="Body"> Body </label>
+                    <textarea id="Body" class="form-control" th:field="*{body}" rows="5" placeholder="Edit your content topic"/>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">UPDATE TOPIC</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

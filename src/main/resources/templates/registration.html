@@ -1,0 +1,62 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<th:block th:include="/_header_on" th:if="${userdto.email}"></th:block>
+<th:block th:include="/_header_off" th:unless="${userdto.email}"></th:block>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <!-- success message  -->
+                <div th:if="${param.success}">
+                    <div class="alert alert-info"> You are successfull registered to our awsome app!</div>
+                </div>
+
+                <h1>Registration</h1>
+                <form th:action="@{/registration}" method="post" th:object="${userdto}">
+                    <div class="form-group">
+                        <label class="control-label" for="Email"> Email </label>
+                        <input type="text" id="Email" class="form-control" th:field="*{email}" required
+                               autofocus="autofocus"/>
+                    </div>
+                    <div th:if="${param.emailexist}">
+                        <div class="alert alert-info"> You email have exist please register other email</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="UserDisplayName"> UserDisplayName </label>
+                        <input type="text" id="UserDisplayName" class="form-control" th:field="*{userDisplayName}" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="Password"> Password </label>
+                        <input type="password" id="Password" class="form-control" th:field="*{password}" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="checkpass"> Check Password </label>
+                        <input type="password" id="checkpass" class="form-control" th:field="*{checkPass}" required/>
+                    </div>
+
+                    <div th:if="${param.checkpass}">
+                        <div class="alert alert-info"> You password and checkpass not same ! Please  checkout it!</div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Register</button>
+                        <span>Already registered ? <a href="/" th:href="@{/login}">Login here</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
